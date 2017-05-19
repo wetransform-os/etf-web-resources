@@ -3945,12 +3945,12 @@ var modelBoxes= new Array('model_http___www.interactive-instruments.de_etf_2.0_R
       </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
     </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
   </span><span class="tEl">&lt;/xs:complexType&gt;</span><span class="tI">
-  </span><span class="tEl">&lt;xs:key</span><span class="tAN"> name=</span><span class="tAV">"TrParentName"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:key</span><span class="tAN"> name=</span><span class="tAV">"TranslationTemplateParentName"</span><span class="tEl">&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:selector</span><span class="tAN"> xpath=</span><span class="tAV">"."</span><span class="tEl">/&gt;</span><span class="tI">
     </span><span class="tC">&lt;!-- Saxon warning can be ignored here! --&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:field</span><span class="tAN"> xpath=</span><span class="tAV">"@name"</span><span class="tEl">/&gt;</span><span class="tI">
   </span><span class="tEl">&lt;/xs:key&gt;</span><span class="tI">
-  </span><span class="tEl">&lt;xs:keyref</span><span class="tAN"> name=</span><span class="tAV">"RefParentNameFromChild"</span><span class="tAN"> refer=</span><span class="tAV">"TrParentName"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:keyref</span><span class="tAN"> name=</span><span class="tAV">"RefParentNameFromChild"</span><span class="tAN"> refer=</span><span class="tAV">"TranslationTemplateParentName"</span><span class="tEl">&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:selector</span><span class="tAN"> xpath=</span><span class="tAV">"etf:translationTemplates/etf:TranslationTemplate"</span><span class="tEl">/&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:field</span><span class="tAN"> xpath=</span><span class="tAV">"@name"</span><span class="tEl">/&gt;</span><span class="tI">
   </span><span class="tEl">&lt;/xs:keyref&gt;</span><span class="tI">

@@ -843,6 +843,18 @@ var modelBoxes= new Array('model_EtfItemCollection',
     </span><span class="tEl">&lt;xs:field</span><span class="tAN"> xpath=</span><span class="tAV">"@egaid"</span><span class="tEl">/&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:field</span><span class="tAN"> xpath=</span><span class="tAV">"version"</span><span class="tEl">/&gt;</span><span class="tI">
   </span><span class="tEl">&lt;/xs:unique&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:key</span><span class="tAN"> name=</span><span class="tAV">"TranslationMessageName"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:selector</span><span class="tAN"> xpath=</span><span class="tAV">"etf:referencedItems/etf:translationTemplateBundles/etf:TranslationTemplateBundle/etf:translationTemplateCollections/etf:LangTranslationTemplateCollection"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:field</span><span class="tAN"> xpath=</span><span class="tAV">"@name"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:key&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:keyref</span><span class="tAN"> name=</span><span class="tAV">"AssertionMessageTranslationReference"</span><span class="tAN"> refer=</span><span class="tAV">"TranslationMessageName"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:selector</span><span class="tAN"> xpath=</span><span class="tAV">"etf:referencedItems/etf:testTaskResults/etf:TestTaskResult/etf:testModuleResults/etf:TestModuleResult/etf:testCaseResults/etf:TestCaseResult/etf:testStepResults/etf:TestStepResult/etf:testAssertionResults/etf:TestAssertionResult/etf:messages/etf:message"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:field</span><span class="tAN"> xpath=</span><span class="tAV">"@ref"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:keyref&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:keyref</span><span class="tAN"> name=</span><span class="tAV">"TestStepMessageTranslationReference"</span><span class="tAN"> refer=</span><span class="tAV">"TranslationMessageName"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:selector</span><span class="tAN"> xpath=</span><span class="tAV">"etf:referencedItems/etf:testTaskResults/etf:TestTaskResult/etf:testModuleResults/etf:TestModuleResult/etf:testCaseResults/etf:TestCaseResult/etf:testStepResults/etf:TestStepResult/etf:messages/etf:message"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:field</span><span class="tAN"> xpath=</span><span class="tAV">"@ref"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:keyref&gt;</span><span class="tI">
 </span><span class="tEl">&lt;/xs:element&gt;</span></pre></td>
                                  </tr>
                               </table>
