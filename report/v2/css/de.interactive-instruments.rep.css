@@ -95,9 +95,9 @@ td:first-child {
 }
 
 .ReportDetail {
-    visibility: hidden;
+    display: none;
 }
 
 .DoNotShowInSimpleView {
-    visibility: hidden;
+    display: none;
 }
