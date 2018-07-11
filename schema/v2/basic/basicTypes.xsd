@@ -112,10 +112,16 @@
                         </xs:sequence>
                         <xs:attribute name="name" type="xs:string" use="required"/>
                         <xs:attribute name="required" type="xs:boolean" default="false"/>
+                        <xs:attribute name="static" type="xs:boolean" default="false">
+                            <xs:annotation>
+                                <xs:documentation>Indicates if the value can be
+                                    changed</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
                         <xs:attribute name="excludesParameter" type="xs:string">
                             <xs:annotation>
-                                <xs:documentation>Name of a parameter that may not be set if this
-                                    parameter is set</xs:documentation>
+                                <xs:documentation>One or multiple names of a other parameters that
+                                    cannot be set if this parameter is set</xs:documentation>
                             </xs:annotation>
                         </xs:attribute>
                     </xs:complexType>
@@ -501,7 +507,6 @@
             <!-- extended by service.xsd -->
 
             <xs:element ref="reference" minOccurs="0"/>
-            <xs:element ref="Properties" minOccurs="0"/>
         </xs:sequence>
     </xs:group>
 
