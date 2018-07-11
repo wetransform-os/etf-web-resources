@@ -507,6 +507,7 @@
             <!-- extended by service.xsd -->
 
             <xs:element ref="reference" minOccurs="0"/>
+            <xs:element ref="Properties" minOccurs="0"/>
         </xs:sequence>
     </xs:group>
 
