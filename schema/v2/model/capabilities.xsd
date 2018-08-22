@@ -6,9 +6,9 @@
     elementFormDefault="qualified" version="1.0">
 
     <xs:annotation>
-        <xs:documentation xml:lang="en"> capabilities.xsd. Created by Jon Herrmann, (c) 2016-2017
-            interactive instruments GmbH. This file is part of ETF which is licensed under the
-            Apache License Version 2.0 </xs:documentation>
+        <xs:documentation xml:lang="en"> capabilities.xsd. Jon Herrmann, (c) 2016-2018 interactive
+            instruments GmbH. This file is part of ETF which is licensed under EUPL 1.2
+        </xs:documentation>
     </xs:annotation>
 
     <!-- =============================================================== -->
@@ -274,28 +274,33 @@
 
     <!-- =============================================================== -->
     <xs:element name="TestRunTemplate">
-        <xs:annotation>
-            <xs:appinfo>
-                <etfAppinfo:cacheStrategy>evictable</etfAppinfo:cacheStrategy>
-            </xs:appinfo>
-        </xs:annotation>
         <xs:complexType>
+            <xs:annotation>
+                <xs:documentation> A template to start one ore multiple Test Runs
+                </xs:documentation>
+            </xs:annotation>
             <xs:sequence>
-                <xs:group ref="RepositoryItemGroup"/>
-                <xs:element name="testTasks">
+                <xs:element name="label" type="xs:string"/>
+                <xs:element name="description" type="xs:string"/>
+                <xs:element name="version" type="xs:string"/>
+                <xs:element name="defaultLang" type="xs:language"/>
+                <xs:element ref="ParameterList"/>
+                <xs:element name="ExecutableTestSuites">
                     <xs:complexType>
-                        <xs:sequence>
-                            <xs:element name="TestTask">
-                                <xs:complexType>
-                                    <xs:group ref="TestTaskConfigurationGroup" minOccurs="0"
-                                        maxOccurs="unbounded"/>
-                                </xs:complexType>
-                            </xs:element>
+                        <xs:sequence maxOccurs="unbounded">
+                            <xs:element name="executableTestSuite" type="RefType" minOccurs="1"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="TestObjects" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence maxOccurs="unbounded">
+                            <xs:element name="testObject" type="RefType" minOccurs="1"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
-            <xs:attributeGroup ref="IdentifierAttributeGroup"/>
+            <xs:attributeGroup ref="GroupAndArtifactIdentifierAttributeGroup"/>
         </xs:complexType>
     </xs:element>
 
