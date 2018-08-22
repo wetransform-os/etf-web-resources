@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns="http://www.interactive-instruments.de/etf/2.0"
+    xmlns:sch="http://purl.oclc.org/dsdl/schematron"
     targetNamespace="http://www.interactive-instruments.de/etf/2.0"
     xmlns:etf="http://www.interactive-instruments.de/etf/2.0" elementFormDefault="qualified"
     version="1.0">
@@ -41,24 +42,22 @@
             <xs:sequence>
                 <xs:element name="remoteResource" type="httpUriType" minOccurs="0">
                     <xs:annotation>
-                        <xs:documentation>
-                            The remote Http URI from where the item has been fetched
-                            and will be synchonized by the ETF, e.g. a git URL
-                        </xs:documentation>
+                        <xs:documentation> The remote Http URI from where the item has been fetched
+                            and will be synchonized by the ETF, e.g. a git URL </xs:documentation>
                     </xs:annotation>
                 </xs:element>
                 <xs:group ref="RepositoryItemGroup"/>
             </xs:sequence>
         </xs:group>
     </xs:redefine>
-    
+
     <xs:include schemaLocation="../model/items.xsd"/>
     <!-- =============================================================== -->
 
     <!-- =============================================================== -->
     <xs:complexType name="loc">
         <xs:annotation>
-            <xs:documentation> Local reference to item in collection </xs:documentation>
+            <xs:documentation> References an item in the collection </xs:documentation>
         </xs:annotation>
         <xs:complexContent>
             <xs:extension base="RefType">
@@ -84,15 +83,16 @@
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
-    
+
     <!-- =============================================================== -->
-    <xs:complexType name="egaref">
+    <xs:complexType name="egaidv">
         <xs:annotation>
-            <xs:documentation> Reference to an external type </xs:documentation>
+            <xs:documentation> Reference an item in the collection by Group, Artifact ID and
+                Version</xs:documentation>
         </xs:annotation>
         <xs:complexContent>
             <xs:extension base="RefType">
-                <xs:attribute name="gaidref" type="EGAIDRefType" use="required"/>
+                <xs:attribute name="ref" type="EGAIDVRefType" use="required"/>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
@@ -169,18 +169,20 @@
             </xs:sequence>
             <xs:attribute name="position" type="xs:nonNegativeInteger" use="optional">
                 <xs:annotation>
-                    <xs:documentation>Position of this page in relation to the complete set of unpaginated items.</xs:documentation>
+                    <xs:documentation>Position of this page in relation to the complete set of
+                        unpaginated items.</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute name="returnedItems" type="xs:nonNegativeInteger" use="required">
                 <xs:annotation>
-                    <xs:documentation>Number of returned items in this page -not
-                        including the referenced items</xs:documentation>
+                    <xs:documentation>Number of returned items in this page -not including the
+                        referenced items</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute name="version" use="required">
                 <xs:annotation>
-                    <xs:documentation> The service version in the form MAJOR.MINOR</xs:documentation>
+                    <xs:documentation> The service version in the form
+                        MAJOR.MINOR</xs:documentation>
                 </xs:annotation>
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
@@ -189,29 +191,32 @@
                 </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
+        <!-- =============================================================== -->
         <xs:unique name="UniqueEGAIDandVersionCombinationsInCollection">
             <xs:annotation>
-                <xs:documentation>
-                    Each combination of EGAID and a Version must be unique. 
-                    Note: only referenced model items can be checked with XSD 1.0.
-                </xs:documentation>
+                <xs:documentation> Each combination of EGAID and a Version must be unique. Note:
+                    only referenced model items can be checked with XSD 1.0. </xs:documentation>
             </xs:annotation>
             <xs:selector xpath="*/referencedItems/*"/>
             <xs:field xpath="@egaid"/>
             <xs:field xpath="version"/>
         </xs:unique>
         <xs:key name="TranslationMessageName">
-            <xs:selector xpath="etf:referencedItems/etf:translationTemplateBundles/etf:TranslationTemplateBundle/etf:translationTemplateCollections/etf:LangTranslationTemplateCollection"></xs:selector>
-            <xs:field xpath="@name"></xs:field>
+            <xs:selector
+                xpath="etf:referencedItems/etf:translationTemplateBundles/etf:TranslationTemplateBundle/etf:translationTemplateCollections/etf:LangTranslationTemplateCollection"/>
+            <xs:field xpath="@name"/>
         </xs:key>
         <xs:keyref name="AssertionMessageTranslationReference" refer="TranslationMessageName">
-            <xs:selector xpath="etf:referencedItems/etf:testTaskResults/etf:TestTaskResult/etf:testModuleResults/etf:TestModuleResult/etf:testCaseResults/etf:TestCaseResult/etf:testStepResults/etf:TestStepResult/etf:testAssertionResults/etf:TestAssertionResult/etf:messages/etf:message"></xs:selector>
-            <xs:field xpath="@ref"></xs:field>
+            <xs:selector
+                xpath="etf:referencedItems/etf:testTaskResults/etf:TestTaskResult/etf:testModuleResults/etf:TestModuleResult/etf:testCaseResults/etf:TestCaseResult/etf:testStepResults/etf:TestStepResult/etf:testAssertionResults/etf:TestAssertionResult/etf:messages/etf:message"/>
+            <xs:field xpath="@ref"/>
         </xs:keyref>
         <xs:keyref name="TestStepMessageTranslationReference" refer="TranslationMessageName">
-            <xs:selector xpath="etf:referencedItems/etf:testTaskResults/etf:TestTaskResult/etf:testModuleResults/etf:TestModuleResult/etf:testCaseResults/etf:TestCaseResult/etf:testStepResults/etf:TestStepResult/etf:messages/etf:message"></xs:selector>
-            <xs:field xpath="@ref"></xs:field>
+            <xs:selector
+                xpath="etf:referencedItems/etf:testTaskResults/etf:TestTaskResult/etf:testModuleResults/etf:TestModuleResult/etf:testCaseResults/etf:TestCaseResult/etf:testStepResults/etf:TestStepResult/etf:messages/etf:message"/>
+            <xs:field xpath="@ref"/>
         </xs:keyref>
+        <!-- =============================================================== -->
     </xs:element>
 
 </xs:schema>
