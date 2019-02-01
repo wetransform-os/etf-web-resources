@@ -30,7 +30,9 @@
         <xs:complexType name="RefType">
             <xs:complexContent>
                 <xs:extension base="RefType">
+                <!-- 
                     <xs:attribute name="ref" type="IdRefType" use="required"/>
+                 -->
                 </xs:extension>
             </xs:complexContent>
         </xs:complexType>

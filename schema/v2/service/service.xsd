@@ -61,7 +61,9 @@
         </xs:annotation>
         <xs:complexContent>
             <xs:extension base="RefType">
-                <xs:attribute name="ref" type="IdRefType" use="required"/>
+<!-- 
+                 <xs:attribute name="ref" type="IdRefType" use="required"/>
+ -->
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
@@ -90,11 +92,15 @@
             <xs:documentation> Reference an item in the collection by Group, Artifact ID and
                 Version</xs:documentation>
         </xs:annotation>
+        <!-- 
         <xs:complexContent>
             <xs:extension base="RefType">
+         -->
                 <xs:attribute name="ref" type="EGAIDVRefType" use="required"/>
+                <!-- 
             </xs:extension>
         </xs:complexContent>
+                 -->
     </xs:complexType>
 
 
