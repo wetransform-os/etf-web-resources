@@ -3,6 +3,7 @@
     xmlns="http://www.interactive-instruments.de/etf/2.0"
     targetNamespace="http://www.interactive-instruments.de/etf/2.0"
     xmlns:etfAppinfo="http://www.interactive-instruments.de/etf/appinfo/1.0"
+    xmlns:etf="http://www.interactive-instruments.de/etf/2.0"
     elementFormDefault="qualified" version="1.0">
 
     <xs:annotation>
@@ -280,27 +281,148 @@
                 </xs:documentation>
             </xs:annotation>
             <xs:sequence>
+             	<xs:sequence>
+         	<!-- merge start -->        
+            <xs:element name="itemHash" type="xs:string" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The item is updated by the ETF whenever an item is
+                        modified and can be used to detect changes</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="remoteResource" type="httpUriType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>The remote Http URI from where the item has been fetched
+                        and will be synchonized by the ETF, e.g. a git URL</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="localPath" type="xs:anyURI" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Path to a synchronized local copy of the remote
+                        data</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+         	<!-- merge end -->        
+        
+            <xs:sequence>
+ 			<!--  merge start -->
+            <xs:element ref="label" minOccurs="0"/>
+            <xs:element ref="translatableLabel" minOccurs="0"/>
+            <xs:element ref="description" minOccurs="0"/>
+            <xs:element ref="translatableDescription" minOccurs="0"/>
+ 			<!--  merge end -->
+         
+        
+            <xs:group ref="ModelItemGroup"/>
+
+            <!-- extended by service.xsd -->
+
+            <xs:element ref="reference" minOccurs="0"/>
+            <!-- 
+            <xs:element ref="Properties" minOccurs="0"/>
+             -->
+        </xs:sequence>
+            <xs:element name="replacedBy" minOccurs="0">
+                <xs:annotation>
+                    <xs:appinfo>
+                        <etfAppinfo:replaceableByExternalRef>true</etfAppinfo:replaceableByExternalRef>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="RefType">
+                            <xs:sequence>
+                                <xs:element name="reason" type="xs:string" minOccurs="0"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="version" type="etf:VersionType" minOccurs="1"/>
+            <xs:element name="author" type="xs:string" minOccurs="1"/>
+            <xs:element name="creationDate" type="xs:dateTime" minOccurs="1"/>
+            <xs:element name="lastEditor" type="xs:string" minOccurs="0"/>
+            <xs:element name="lastUpdateDate" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="disabled" type="xs:boolean" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Default if absent: false</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="tags" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="tag" type="RefType" minOccurs="1" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:appinfo>
+                                    <etfAppinfo:replaceableByExternalRef>false</etfAppinfo:replaceableByExternalRef>
+                                </xs:appinfo>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+<!-- 
                 <xs:element name="label" type="xs:string"/>
                 <xs:element name="description" type="xs:string"/>
                 <xs:element name="version" type="xs:string"/>
                 <xs:element name="defaultLang" type="xs:language"/>
+ -->
+                <xs:element ref="Properties" minOccurs="0"/>                
                 <xs:element ref="ParameterList"/>
-                <xs:element name="ExecutableTestSuites">
+                <xs:element name="executableTestSuites">
                     <xs:complexType>
-                        <xs:sequence maxOccurs="unbounded">
-                            <xs:element name="executableTestSuite" type="RefType" minOccurs="1"/>
+                        <xs:sequence minOccurs="1" maxOccurs="unbounded">
+                            <xs:element name="executableTestSuite" type="RefType" />
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="TestObjects" minOccurs="0">
+                <xs:element name="testObjects" minOccurs="0">
                     <xs:complexType>
                         <xs:sequence maxOccurs="unbounded">
                             <xs:element name="testObject" type="RefType" minOccurs="1"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
+                <xs:element name="supportedTestObjectTypes">
+                    <xs:complexType>
+                        <xs:sequence minOccurs="1" maxOccurs="unbounded">
+                            <!--xs:element name="testObjectType">
+                                Error: The xsi:type is not validly derived from the declared type. The requested type loc is not validly derived from the declared type of element testObjectType
+                                <xs:complexType>
+                                    <xs:complexContent>
+                                        <xs:extension base="RefType">
+                                            <xs:attribute name="max" type="xs:positiveInteger">
+                                                <xs:annotation>
+                                                  <xs:documentation> Default: 1. The maximum number
+                                                  of Test Objects of this Test Object Type that can
+                                                  be processed in parallel by this Executable Test
+                                                  Suite. A Executable Test Suite for example, that
+                                                  can compare 2 or more Test Objects need to set a
+                                                  value greater than 1.</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                        </xs:extension>
+                                    </xs:complexContent>
+                                </xs:complexType>
+                            </xs:element-->
+                            <xs:element name="testObjectType" type="RefType"/>
+                        </xs:sequence>
+                        <xs:attribute name="max" type="xs:positiveInteger">
+                            <xs:annotation>
+                                <xs:documentation> Default: 1. The maximum number of Test Objects
+                                    this Executable Test Suite can process in parallel. An
+                                    Executable Test Suite for example, that can compare 2 or more
+                                    Test Objects need to set a value greater than
+                                    1.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
             </xs:sequence>
+             <xs:attributeGroup ref="IdentifierAttributeGroup"/>
+            <!-- 
             <xs:attributeGroup ref="GroupAndArtifactIdentifierAttributeGroup"/>
+             -->
         </xs:complexType>
     </xs:element>
 

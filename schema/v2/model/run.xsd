@@ -72,8 +72,8 @@
     <xs:group name="TestTaskConfigurationGroup">
         <xs:sequence>
             <xs:group ref="ModelItemGroup"/>
-            <xs:element name="executableTestSuite" type="RefType"/>
-            <xs:element name="testObject" type="RefType"/>
+            <xs:element name="executableTestSuite" type="RefType" minOccurs="1"/>
+            <xs:element name="testObject" type="RefType"  minOccurs="1"/>
             <xs:element name="styleResultWith" type="RefType" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>Optional association with result style if results are styled
